@@ -14,6 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Tweet::factory(40)->create();
+        Tweet::factory(50)->create();
     }
 }

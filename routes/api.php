@@ -22,5 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/tweets',function (){
    return Tweet::query()
             ->with('user:id,name,username,avatar')
-            ->latest()->get();
+            ->latest()
+            ->paginate(10);
 });
