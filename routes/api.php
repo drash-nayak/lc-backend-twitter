@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Tweet;
+use App\Models\User;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,13 +21,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/tweets',function (){
-   return Tweet::query()
-            ->with('user:id,name,username,avatar')
-            ->latest()
-            ->paginate(10);
+Route::get('/tweets', function () {
+    return Tweet::query()
+        ->with('user:id,name,username,avatar,location,link,link_text,profile')
+        ->latest()
+        ->paginate(10);
 });
 
-Route::get('/tweets/{tweet}',function (Tweet $tweet){
-   return $tweet->load('user:id,name,username,avatar');
+Route::get('/tweets/{tweet}', function (Tweet $tweet) {
+    return $tweet->load('user:id,name,username,avatar,location,link,link_text,profile');
+});
+
+Route::get('/users/{user}', function (User $user) {
+  //  return $user->only('id','name');
+    return $user;
 });
