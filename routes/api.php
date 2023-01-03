@@ -33,6 +33,12 @@ Route::get('/tweets/{tweet}', function (Tweet $tweet) {
 });
 
 Route::get('/users/{user}', function (User $user) {
-  //  return $user->only('id','name');
     return $user;
+});
+
+Route::get('/users/{user}/tweets', function (User $user) {
+    return $user->tweets()
+        ->with('user:id,name,username,avatar,location,link,link_text,profile')
+        ->latest()
+        ->paginate(10);
 });
